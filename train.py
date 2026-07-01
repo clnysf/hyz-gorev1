@@ -162,7 +162,7 @@ def get_optimal_batch_size() -> int:
 def train_custom_model(
     data_yaml: str = "data/data.yaml",
     model_name: str = "yolo11s.pt",
-    epochs: int = 50,
+    epochs: int = 10,
     imgsz: int = 640,
 ):
     """

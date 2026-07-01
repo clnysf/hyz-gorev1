@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 
-MODEL_PATH = "runs/detect/custom_drone_20260630_1443/weights/best.pt"
+MODEL_PATH = "runs/detect/custom_drone_20260701_1148/weights/best.pt"
 IMAGE_PATH = "image/test5.png"
 
 CLASS_NAMES = {
@@ -14,7 +14,7 @@ CLASS_NAMES = {
 }
 
 AREA_CLASSES = [0, 1]          # UAI, UAP
-OBSTACLE_CLASSES = [2, 3, 4]   # car, harvester, person
+OBSTACLE_CLASSES = [2, 3]   # car, person
 
 
 def box_area(box):

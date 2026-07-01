@@ -1,53 +1,54 @@
 from pathlib import Path
+import shutil
 
 LABEL_DIRS = [
     Path("data/train/labels"),
     Path("data/valid/labels"),
-    Path("data/test/labels"),   # İstersen testi de dönüştür
+    Path("data/test/labels"),
 ]
 
 CLASS_MAP = {
-    "0": "0",  # UAI -> UAI
-    "1": "1",  # UAP -> UAP
-    "2": "2",  # car -> vehicle
-    "3": "2",  # harvester -> vehicle
-    "4": "3",  # person -> person
+    "0": "3",
+    "1": "2",
+    "2": "0",
+    "3": "1",
 }
 
-changed_files = 0
-changed_lines = 0
-
 for label_dir in LABEL_DIRS:
-
     if not label_dir.exists():
+        print("Klasör yok:", label_dir)
         continue
 
+    backup_dir = label_dir.parent / "labels_backup"
+
+    if not backup_dir.exists():
+        shutil.copytree(label_dir, backup_dir)
+        print("Yedek alındı:", backup_dir)
+
+    changed_lines = 0
+    processed_files = 0
+
     for txt_file in label_dir.glob("*.txt"):
-
         lines = txt_file.read_text(encoding="utf-8").splitlines()
-
         new_lines = []
-        file_changed = False
 
         for line in lines:
-
-            parts = line.split()
+            parts = line.strip().split()
 
             if len(parts) >= 5:
+                old_id = parts[0]
 
-                old = parts[0]
-                new = CLASS_MAP[old]
+                if old_id in CLASS_MAP:
+                    parts[0] = CLASS_MAP[old_id]
 
-                if old != new:
-                    parts[0] = new
-                    changed_lines += 1
-                    file_changed = True
+                    if old_id != parts[0]:
+                        changed_lines += 1
 
             new_lines.append(" ".join(parts))
 
-        if file_changed:
-            txt_file.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
-            changed_files += 1
+        txt_file.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
+        processed_files += 1
 
-print(f"Değişen dosya: {changed_files}")
-print(f"Değişen etiket: {changed_lines}")
+    print(f"{label_dir} işlendi.")
+    print(f"Dosya: {processed_files}")
+    print(f"Değişen etiket: {changed_lines}")
