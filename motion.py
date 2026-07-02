@@ -8,7 +8,7 @@ MODEL_PATH = "runs/detect/custom_drone_20260701_1148/weights/best.pt"
 FRAME_1 = "image/hareket1.webp"
 FRAME_2 = "image/hareket2.webp"
 
-VEHICLE_CLASS_ID = 2  # sende şu an: 0 UAI, 1 UAP, 2 vehicle, 3 person
+VEHICLE_CLASS_ID = 2  # 0 UAI, 1 UAP, 2 vehicle, 3 person
 
 
 def detect_vehicles(model, frame):
