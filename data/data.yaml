@@ -3,11 +3,7 @@ val: ../valid/images
 test: ../test/images
 
 nc: 4
-names:
-  0: UAI
-  1: UAP
-  2: vehicle
-  3: person
+names: ['vehicle', 'person', 'UAP', 'UAI']
 
 roboflow:
   workspace: nars-workspace
