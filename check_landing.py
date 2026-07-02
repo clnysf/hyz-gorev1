@@ -3,8 +3,8 @@ import cv2
 import numpy as np
 
 
-MODEL_PATH = "runs/detect/custom_drone_20260701_1148/weights/best.pt"
-IMAGE_PATH = "image/test5.png"
+MODEL_PATH = "runs/detect/custom_drone_20260702_1337/weights/best.pt"
+IMAGE_PATH = "image/test4.png"
 
 CLASS_NAMES = {
     0: "UAI",
